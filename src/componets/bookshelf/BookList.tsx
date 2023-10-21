@@ -1,5 +1,5 @@
 import { For } from "solid-js";
-import { Book } from "./App";
+import { Book } from "./interfaces/book.interface";
 
 interface BookListProps {
   books: Book[];

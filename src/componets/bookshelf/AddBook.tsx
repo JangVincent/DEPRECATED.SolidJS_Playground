@@ -1,18 +1,19 @@
-import { JSX, Setter, createSignal } from "solid-js";
-import { Book } from "./App";
+import { Setter, createSignal } from "solid-js";
+import { emptyBook } from "./constants/emptyBook.const";
+import { Book } from "./interfaces/book.interface";
 
 export interface AddBookProps {
   setBooks : Setter<Book[]>
 }
 
-const emptyBook: Book = {title : "", author : ""}
-export function AddBook(props : AddBookProps) {
-  const [newBook, setNewBook] = createSignal(emptyBook)
-  const addBook: JSX.EventHandler<HTMLButtonElement, MouseEvent> = (e) => {
+export function AddBook(props: AddBookProps) {
+  const [newBook, setNewBook] = createSignal(emptyBook);
+
+  const addBook = (e : MouseEvent) => {
     e.preventDefault();
     props.setBooks((books) => [...books, newBook()]);
-    setNewBook(emptyBook)
-  }
+    setNewBook(emptyBook);
+  };
 
   return (
     <form>
@@ -30,5 +31,5 @@ export function AddBook(props : AddBookProps) {
       </div>
       <button type="submit" onClick={addBook}>Add Book</button>
     </form>
-  )
+  );
 }
