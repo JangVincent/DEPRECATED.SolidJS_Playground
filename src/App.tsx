@@ -1,5 +1,5 @@
 import { HelloWorld } from './HelloWorld';
-import { BookShelf } from './componets/bookshelf/BookShelf';
+import { BookShelf } from './components/bookshelf/BookShelf';
 
 const App = () => {
   return (
