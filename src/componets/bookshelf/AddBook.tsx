@@ -1,35 +1,58 @@
-import { Setter, createSignal } from "solid-js";
-import { emptyBook } from "./constants/emptyBook.const";
+import { For, Setter, Show, createResource, createSignal } from "solid-js";
 import { Book } from "./interfaces/book.interface";
+import { searchBooks } from "./searchBooks";
 
 export interface AddBookProps {
   setBooks : Setter<Book[]>
 }
 
 export function AddBook(props: AddBookProps) {
-  const [newBook, setNewBook] = createSignal(emptyBook);
 
-  const addBook = (e : MouseEvent) => {
-    e.preventDefault();
-    props.setBooks((books) => [...books, newBook()]);
-    setNewBook(emptyBook);
-  };
+  const [input, setInput] = createSignal("");
+  const [query, setQuery] = createSignal("");
+
+  const [data] = createResource<Book[], string>(query, searchBooks);
 
   return (
-    <form>
-      <div>
-        <label for="title">Book Title</label>
-        <input id="title" value={newBook().title} onInput={(e) => {
-          setNewBook({ ...newBook(), title: e.currentTarget.value });
-        }} />
-      </div>
-      <div>
-        <label for="author">Author</label>
-        <input id="author" value={newBook().author} onInput={(e) => {
-          setNewBook({ ...newBook(), author: e.currentTarget.value });
-        }} />
-      </div>
-      <button type="submit" onClick={addBook}>Add Book</button>
-    </form>
+    <>
+      <form>
+        <div>
+          <label for="title">Search Book</label>
+          <input
+            id="title"
+            type="text"
+            value={input()}
+            onInput={(e) => setInput(e.currentTarget.value)}
+          />
+        </div>
+        <button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            setQuery(input());
+          }}>Search</button>
+      </form>
+      <Show when={!data.loading} fallback={<>Searching...</>}>
+        <ul>
+          <For each={data()}>
+          {(book) => (
+              <li>
+                {book.title} by {book.author}{" "}
+                <button
+                  aria-label={`Add ${book.title} by ${book.author} to the bookshelf`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    props.setBooks((books) => [...books, book]);
+                  }}
+                >
+                  Add
+                </button>
+              </li>
+            )}
+          </For>
+        </ul>
+      </Show>
+    </>
+    
   );
 }
