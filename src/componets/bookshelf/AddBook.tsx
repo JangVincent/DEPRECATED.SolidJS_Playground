@@ -1,15 +1,14 @@
-import { For, Setter, Show, createResource, createSignal } from "solid-js";
-import { Book } from "./interfaces/book.interface";
-import { searchBooks } from "./searchBooks";
+import { For, Setter, Show, createResource, createSignal } from 'solid-js';
+import { Book } from './interfaces/book.interface';
+import { searchBooks } from './searchBooks';
 
 export interface AddBookProps {
-  setBooks : Setter<Book[]>
+  setBooks: Setter<Book[]>;
 }
 
 export function AddBook(props: AddBookProps) {
-
-  const [input, setInput] = createSignal("");
-  const [query, setQuery] = createSignal("");
+  const [input, setInput] = createSignal('');
+  const [query, setQuery] = createSignal('');
 
   const [data] = createResource<Book[], string>(query, searchBooks);
 
@@ -30,14 +29,17 @@ export function AddBook(props: AddBookProps) {
           onClick={(e) => {
             e.preventDefault();
             setQuery(input());
-          }}>Search</button>
+          }}
+        >
+          Search
+        </button>
       </form>
       <Show when={!data.loading} fallback={<>Searching...</>}>
         <ul>
           <For each={data()}>
-          {(book) => (
+            {(book) => (
               <li>
-                {book.title} by {book.author}{" "}
+                {book.title} by {book.author}{' '}
                 <button
                   aria-label={`Add ${book.title} by ${book.author} to the bookshelf`}
                   onClick={(e) => {
@@ -53,6 +55,5 @@ export function AddBook(props: AddBookProps) {
         </ul>
       </Show>
     </>
-    
   );
 }

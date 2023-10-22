@@ -1,16 +1,16 @@
-import { For } from "solid-js";
-import { Book } from "./interfaces/book.interface";
+import { For } from 'solid-js';
+import { Book } from './interfaces/book.interface';
 
 interface BookListProps {
   books: Book[];
 }
 
 export function BookList(props: BookListProps) {
-  const totalBooks = () => props.books.length 
+  const totalBooks = () => props.books.length;
 
   const authorStyle = {
-    "font-style": "italic"
-  }
+    'font-style': 'italic',
+  };
 
   return (
     <>
@@ -19,15 +19,14 @@ export function BookList(props: BookListProps) {
         <For each={props.books}>
           {(book) => {
             return (
-            <li>
-              {book.title} 
-              <span style={authorStyle}>({book.author})</span>
-            </li>
-          )
+              <li>
+                {book.title}
+                <span style={authorStyle}>({book.author})</span>
+              </li>
+            );
           }}
         </For>
       </ul>
     </>
-    
-  )
+  );
 }

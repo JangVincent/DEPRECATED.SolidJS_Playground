@@ -8,7 +8,7 @@ const App = () => {
       <HelloWorld />
       <BookShelf name="Phantola" />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

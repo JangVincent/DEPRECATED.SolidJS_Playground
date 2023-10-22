@@ -1,14 +1,14 @@
-import { createSignal } from "solid-js";
+import { createSignal } from 'solid-js';
 
 export function Counter() {
-  const [counter, setCounter] = createSignal(0)
+  const [counter, setCounter] = createSignal(0);
 
-  const increment = () => setCounter(counter() + 1)
-  
+  const increment = () => setCounter(counter() + 1);
+
   return (
-  <div>
-    Current Count : {counter()}
-    <button onClick={increment}>Increment</button>
-  </div>
-  )
+    <div>
+      Current Count : {counter()}
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
 }
