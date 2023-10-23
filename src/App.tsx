@@ -1,11 +1,11 @@
-import { HelloWorld } from './HelloWorld';
+import { HelloWorld } from './components/HelloWorld';
 import { BookShelf } from './components/bookshelf/BookShelf';
+import Nav from './components/nav/Nav';
 
 const App = () => {
   return (
     <div>
-      <h1>Welcome</h1>
-      {/* <Card /> */}
+      <Nav></Nav>
       <HelloWorld />
       <BookShelf name="Phantola" />
     </div>
